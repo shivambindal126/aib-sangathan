@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanghatan — Amity University Sports Fest Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14213D;
+    --navy-2:#1D2F52;
+    --crimson:#D7263D;
+    --crimson-dark:#B01F32;
+    --ivory:#F7F7F2;
+    --ivory-dim:#EDECE4;
+    --ink:#1A1A1A;
+    --muted:#6B6F76;
+    --ok:#1F8A4C;
+    --line:#E1DFD6;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--ivory);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:0 0 60px;
+  }
+  .wrap{width:100%;max-width:620px;}
+  .hero{
+    background:var(--navy);
+    background-image:
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+    color:var(--ivory);
+    padding:56px 32px 44px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-40px;
+    top:-60px;
+    width:260px;
+    height:260px;
+    border:14px solid rgba(215,38,61,0.35);
+    border-radius:50%;
+  }
+  .eyebrow{
+    font-size:14px;
+    color:var(--crimson);
+    font-weight:700;
+    letter-spacing:0.02em;
+    margin:0 0 6px;
+    position:relative;
+  }
+  .hero h1{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:64px;
+    line-height:0.95;
+    letter-spacing:0.01em;
+    margin:0 0 12px;
+    position:relative;
+  }
+  .hero .sub{
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ivory);
+    letter-spacing:0.02em;
+    margin:0 0 14px;
+    position:relative;
+    text-transform:uppercase;
+  }
+  .hero p{
+    font-size:15px;
+    color:#C7CCDA;
+    max-width:40ch;
+    line-height:1.5;
+    margin:0;
+    position:relative;
+  }
+  form{
+    background:#fff;
+    margin:-24px 24px 0;
+    border-radius:4px;
+    padding:32px 28px 12px;
+    box-shadow:0 12px 32px rgba(20,33,61,0.10);
+    position:relative;
+  }
+  .field{margin-bottom:22px;}
+  label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--navy);
+    margin-bottom:8px;
+  }
+  .req{color:var(--crimson);}
+  input[type=text], input[type=tel], select{
+    width:100%;
+    padding:12px 14px;
+    font-size:15px;
+    font-family:'Inter',sans-serif;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    background:var(--ivory);
+    color:var(--ink);
+    transition:border-color .15s;
+  }
+  input[type=text]:focus, input[type=tel]:focus, select:focus{
+    outline:none;
+    border-color:var(--navy);
+  }
+  select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2314213D' stroke-width='1.6' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center;}
+  .checkbox-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4px 12px;
+    max-height:340px;
+    overflow-y:auto;
+    padding:4px 4px 4px 2px;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    background:var(--ivory);
+  }
+  .check-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 8px;
+    font-size:14px;
+    color:var(--ink);
+    cursor:pointer;
+    user-select:none;
+    border-radius:3px;
+    transition:background .12s;
+  }
+  .check-item:hover{background:var(--ivory-dim);}
+  .check-item input[type=checkbox]{
+    position:absolute;
+    opacity:0;
+    width:0;height:0;
+  }
+  .check-item .box{
+    flex:0 0 18px;
+    width:18px;height:18px;
+    border:1.5px solid #B9BCC4;
+    border-radius:4px;
+    background:#fff;
+    position:relative;
+    transition:all .12s;
+  }
+  .check-item input:checked + .box{
+    background:var(--navy);
+    border-color:var(--navy);
+  }
+  .check-item input:checked + .box::after{
+    content:"";
+    position:absolute;
+    left:5px; top:1px;
+    width:5px; height:10px;
+    border:solid #fff;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .check-item input:focus-visible + .box{
+    outline:2px solid var(--crimson);
+    outline-offset:1px;
+  }
+  @media (max-width:420px){
+    .checkbox-list{grid-template-columns:1fr;}
+  }
+  .toggle{display:flex; gap:10px;}
+  .toggle button{
+    flex:1;
+    padding:12px;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    background:var(--ivory);
+    font-size:15px;
+    font-weight:600;
+    font-family:'Inter',sans-serif;
+    cursor:pointer;
+    color:var(--muted);
+    transition:all .15s;
+  }
+  .toggle button.active{background:var(--navy); border-color:var(--navy); color:#fff;}
+  .toggle button.active.yes{background:var(--ok); border-color:var(--ok); color:#fff;}
+  .toggle button.active.no{background:#8A8F98; border-color:#8A8F98; color:#fff;}
+  .conditional{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height .25s ease, opacity .2s ease, margin .25s ease;
+  }
+  .conditional.open{max-height:140px; opacity:1;}
+  .hint{font-size:12px; color:var(--muted); margin-top:6px;}
+  .error{font-size:12px; color:var(--crimson); margin-top:6px; display:none;}
+  .field.invalid input, .field.invalid select{border-color:var(--crimson);}
+  .field.invalid .error{display:block;}
+  .submit-row{padding:8px 0 28px;}
+  button.submit{
+    width:100%;
+    padding:15px;
+    background:var(--crimson);
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    font-size:16px;
+    font-weight:700;
+    font-family:'Inter',sans-serif;
+    letter-spacing:0.01em;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  button.submit:hover{background:var(--crimson-dark);}
+  button.submit:disabled{background:#C9CDD6; cursor:not-allowed;}
+  .success{
+    display:none;
+    margin:-24px 24px 40px;
+    background:#fff;
+    border-radius:4px;
+    padding:40px 28px;
+    text-align:center;
+    box-shadow:0 12px 32px rgba(20,33,61,0.10);
+  }
+  .success.show{display:block;}
+  .success .tick{
+    width:56px;height:56px;border-radius:50%;
+    background:var(--ok);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 18px;
+  }
+  .success .tick svg{width:26px;height:26px;}
+  .success h2{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:32px;
+    color:var(--navy);
+    margin:0 0 10px;
+    letter-spacing:0.01em;
+  }
+  .success p{
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+    max-width:38ch;
+    margin:0 auto;
+  }
+  .success p b{color:var(--navy);}
+  @media (max-width:480px){
+    .hero{padding:44px 20px 40px;}
+    .hero h1{font-size:48px;}
+    form, .success{margin-left:14px; margin-right:14px; padding-left:20px; padding-right:20px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <p class="eyebrow">AMITY UNIVERSITY SPORTS FEST</p>
+    <h1>SANGHATAN</h1>
+    <p class="sub">Player Registration</p>
+    <p>Register to represent your course at Sanghatan, Amity University's annual sports fest. Fill in your details below — it takes less than two minutes.</p>
+  </div>
+
+  <form id="regForm" novalidate>
+
+    <div class="field" data-field="name">
+      <label>Name <span class="req">*</span></label>
+      <input type="text" id="name" autocomplete="name">
+      <div class="error">Please enter your name.</div>
+    </div>
+
+    <div class="field" data-field="mobile">
+      <label>Mobile Number <span class="req">*</span></label>
+      <input type="tel" id="mobile" maxlength="10" inputmode="numeric" autocomplete="tel">
+      <div class="error">Please enter a valid 10-digit mobile number.</div>
+    </div>
+
+    <div class="field" data-field="enrollment">
+      <label>Enrollment Number <span class="req">*</span></label>
+      <input type="text" id="enrollment">
+      <div class="error">Please enter your enrollment number.</div>
+    </div>
+
+    <div class="field" data-field="course">
+      <label>Course <span class="req">*</span></label>
+      <input type="text" id="course" placeholder="e.g. B.Tech CSE">
+      <div class="error">Please enter your course.</div>
+    </div>
+
+    <div class="field" data-field="semester">
+      <label>Semester <span class="req">*</span></label>
+      <select id="semester">
+        <option value="" disabled selected>Select your semester</option>
+        <option>1</option><option>2</option><option>3</option><option>4</option>
+        <option>5</option><option>6</option><option>7</option><option>8</option>
+      </select>
+      <div class="error">Please select your semester.</div>
+    </div>
+
+    <div class="field" data-field="residency">
+      <label>Are you a Day Scholar or Hosteler? <span class="req">*</span></label>
+      <div class="toggle" id="residencyToggle">
+        <button type="button" data-value="Day Scholar">Day Scholar</button>
+        <button type="button" data-value="Hosteler">Hosteler</button>
+      </div>
+      <div class="error">Please select an option.</div>
+    </div>
+
+    <div class="field" data-field="sport">
+      <label>Which sport(s) do you want to play? <span class="req">*</span></label>
+      <div class="checkbox-list" id="sportList">
+        <label class="check-item"><input type="checkbox" value="Football (only boys)"><span class="box"></span>Football (only boys)</label>
+        <label class="check-item"><input type="checkbox" value="Cricket (only boys)"><span class="box"></span>Cricket (only boys)</label>
+        <label class="check-item"><input type="checkbox" value="Golf"><span class="box"></span>Golf</label>
+        <label class="check-item"><input type="checkbox" value="Basketball"><span class="box"></span>Basketball</label>
+        <label class="check-item"><input type="checkbox" value="Volleyball"><span class="box"></span>Volleyball</label>
+        <label class="check-item"><input type="checkbox" value="Kabbadi"><span class="box"></span>Kabbadi</label>
+        <label class="check-item"><input type="checkbox" value="Kho kho"><span class="box"></span>Kho kho</label>
+        <label class="check-item"><input type="checkbox" value="Shooting"><span class="box"></span>Shooting</label>
+        <label class="check-item"><input type="checkbox" value="Lawn Tennis"><span class="box"></span>Lawn Tennis</label>
+        <label class="check-item"><input type="checkbox" value="Table Tennis"><span class="box"></span>Table Tennis</label>
+        <label class="check-item"><input type="checkbox" value="Badminton"><span class="box"></span>Badminton</label>
+        <label class="check-item"><input type="checkbox" value="100 m"><span class="box"></span>100 m</label>
+        <label class="check-item"><input type="checkbox" value="200 m"><span class="box"></span>200 m</label>
+        <label class="check-item"><input type="checkbox" value="400 m"><span class="box"></span>400 m</label>
+        <label class="check-item"><input type="checkbox" value="4*100 m (boys/girls/mixed)"><span class="box"></span>4*100 m (boys/girls/mixed)</label>
+        <label class="check-item"><input type="checkbox" value="Long jump"><span class="box"></span>Long jump</label>
+        <label class="check-item"><input type="checkbox" value="High jump"><span class="box"></span>High jump</label>
+        <label class="check-item"><input type="checkbox" value="Shot put"><span class="box"></span>Shot put</label>
+        <label class="check-item"><input type="checkbox" value="Javelin"><span class="box"></span>Javelin</label>
+        <label class="check-item"><input type="checkbox" value="Discus throw"><span class="box"></span>Discus throw</label>
+        <label class="check-item"><input type="checkbox" value="Carrom"><span class="box"></span>Carrom</label>
+        <label class="check-item"><input type="checkbox" value="Chess"><span class="box"></span>Chess</label>
+        <label class="check-item"><input type="checkbox" value="Pool"><span class="box"></span>Pool</label>
+        <label class="check-item"><input type="checkbox" value="Snooker"><span class="box"></span>Snooker</label>
+      </div>
+      <div class="error">Please select at least one sport.</div>
+    </div>
+
+    <div class="field" data-field="jersey">
+      <label>Would you be interested in getting a jersey? <span class="req">*</span></label>
+      <div class="toggle" id="jerseyToggle">
+        <button type="button" data-value="Yes" class="yes-btn">Yes</button>
+        <button type="button" data-value="No" class="no-btn">No</button>
+      </div>
+      <div class="error">Please select an option.</div>
+    </div>
+
+    <div class="field conditional" id="jerseyNameField" data-field="jerseyName">
+      <label>What name would you like to have printed on the jersey? <span class="req">*</span></label>
+      <input type="text" id="jerseyName">
+      <div class="error">Please enter the name for the jersey.</div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="submit" id="submitBtn">Submit registration</button>
+    </div>
+  </form>
+
+  <div class="success" id="successBox">
+    <div class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2>Form submitted successfully!</h2>
+    <p>If you need to make any changes to your submitted details or face any issues, please contact <b>Shivam Bindal</b> at <b>7073415826</b>.</p>
+  </div>
+
+</div>
+
+<script>
+  // ---- CONFIGURATION ----
+  // Paste the Google Apps Script "Web app URL" here (from Deploy > New deployment).
+  // Until you do this, submissions will NOT reach your Google Sheet.
+  const CONFIG = {
+    webhookUrl: "https://script.google.com/macros/s/AKfycbzToVhDHW1fFu4rJ8NNXKvvNTNNNaY_BzOSSXBIIRkVTK7VB7fW5SiIUoHXhvRQOL20Zw/exec"
+  };
+
+  const form = document.getElementById('regForm');
+  const successBox = document.getElementById('successBox');
+  const submitBtn = document.getElementById('submitBtn');
+
+  let jerseyChoice = null;
+  let residencyChoice = null;
+
+  document.querySelectorAll('#residencyToggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#residencyToggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      residencyChoice = btn.dataset.value;
+      clearError('residency');
+    });
+  });
+
+  document.querySelectorAll('#sportList input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const anyChecked = document.querySelectorAll('#sportList input[type=checkbox]:checked').length > 0;
+      if (anyChecked) clearError('sport');
+    });
+  });
+
+  function getSelectedSports() {
+    return Array.from(document.querySelectorAll('#sportList input[type=checkbox]:checked')).map(cb => cb.value);
+  }
+
+  const jerseyNameField = document.getElementById('jerseyNameField');
+  document.querySelectorAll('#jerseyToggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#jerseyToggle button').forEach(b => b.classList.remove('active','yes','no'));
+      btn.classList.add('active', btn.dataset.value === 'Yes' ? 'yes' : 'no');
+      jerseyChoice = btn.dataset.value;
+      clearError('jersey');
+      if (jerseyChoice === 'Yes') {
+        jerseyNameField.classList.add('open');
+      } else {
+        jerseyNameField.classList.remove('open');
+        document.getElementById('jerseyName').value = '';
+        clearError('jerseyName');
+      }
+    });
+  });
+
+  function setError(fieldName, on) {
+    const el = document.querySelector(`[data-field="${fieldName}"]`);
+    if (el) el.classList.toggle('invalid', on);
+  }
+  function clearError(fieldName) { setError(fieldName, false); }
+
+  function validate() {
+    let ok = true;
+    const name = document.getElementById('name').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const enrollment = document.getElementById('enrollment').value.trim();
+    const course = document.getElementById('course').value.trim();
+    const semester = document.getElementById('semester').value;
+    const jerseyName = document.getElementById('jerseyName').value.trim();
+
+    if (!name) { setError('name', true); ok = false; } else setError('name', false);
+    if (!/^\d{10}$/.test(mobile)) { setError('mobile', true); ok = false; } else setError('mobile', false);
+    if (!enrollment) { setError('enrollment', true); ok = false; } else setError('enrollment', false);
+    if (!course) { setError('course', true); ok = false; } else setError('course', false);
+    if (!semester) { setError('semester', true); ok = false; } else setError('semester', false);
+    if (!residencyChoice) { setError('residency', true); ok = false; } else setError('residency', false);
+    if (getSelectedSports().length === 0) { setError('sport', true); ok = false; } else setError('sport', false);
+    if (!jerseyChoice) { setError('jersey', true); ok = false; } else setError('jersey', false);
+    if (jerseyChoice === 'Yes' && !jerseyName) { setError('jerseyName', true); ok = false; } else setError('jerseyName', false);
+
+    return ok;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const payload = {
+      name: document.getElementById('name').value.trim(),
+      mobile: document.getElementById('mobile').value.trim(),
+      enrollment: document.getElementById('enrollment').value.trim(),
+      course: document.getElementById('course').value.trim(),
+      semester: document.getElementById('semester').value,
+      residency: residencyChoice,
+      sport: getSelectedSports().join(', '),
+      jerseyInterested: jerseyChoice,
+      jerseyName: jerseyChoice === 'Yes' ? document.getElementById('jerseyName').value.trim() : '',
+      submittedAt: new Date().toISOString()
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    try {
+      if (CONFIG.webhookUrl && !CONFIG.webhookUrl.startsWith('PASTE_')) {
+        // text/plain + no-cors avoids the CORS preflight that Apps Script
+        // web apps don't handle by default. The response is opaque, but
+        // the script still runs and appends the row to the sheet.
+        await fetch(CONFIG.webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+      } else {
+        console.warn('webhookUrl not set — submission was not sent anywhere. See CONFIG in the script.');
+      }
+      form.style.display = 'none';
+      successBox.classList.add('show');
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit registration';
+      alert('Something went wrong sending your response. Please try again.');
+      console.error(err);
+    }
+  });
+</script>
+</body>
+</html>
